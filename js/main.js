@@ -20,12 +20,10 @@ $(document).ready(function() {
     var json = [];
     var db = firebase.database().ref().child('todo');
     db.on('value', function(data) {
-        setTimeout(
-            json.push({
-                judul: data.val().judul,
-                description: data.val().description
-            });
-            , 1000);
+        json.push({
+            judul: data.val().judul,
+            description: data.val().description
+        });
         for (var i = 0; i < json.length; ++i) {
             $('#get_list').append('<div class=\"col-md-3 list\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><div class=\"row\"><div class=\"col-md-8\">'+json[i].judul+'</div><div class=\"col-md-4\"><button type=\"button\" class=\"close close_todo\" data-id=\"'+json[i].id_list+'\"><span>&times;</span></button></div></div></div><div class=\"panel-body\">'+json[i].description+'</div></div></div>');
         }
