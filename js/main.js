@@ -17,17 +17,23 @@ $(document).ready(function() {
         $('#message').html($('#berhasil_message').html());
     });
 
-    var json = [];
+    // var json = [];
+    // var db = firebase.database().ref().child('todo');
+    // db.on('value', function(data) {
+    //     json.push(data.val());
+    //     console.log(json);
+    //     // for (var i = 0; i < json.length; ++i) {
+    //     //     $('#get_list').append('<div class=\"col-md-3 list\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><div class=\"row\"><div class=\"col-md-8\">'+json[i].judul+'</div><div class=\"col-md-4\"><button type=\"button\" class=\"close close_todo\" data-id=\"'+json[i].id_list+'\"><span>&times;</span></button></div></div></div><div class=\"panel-body\">'+json[i].description+'</div></div></div>');
+    //     // }
+    // });
+
     var db = firebase.database().ref().child('todo');
-    db.on('value', function(data) {
-        json.push({
-            judul: data.val().judul,
-            description: data.val().description
+    db.on('value', function(notesSnapshot) {
+        $('#get_list').empty();
+        notesSnapshot.forEach(function(noteSnapshot) {
+            console.log(noteSnapshot.val());
+            $('#get_list').append('<div class=\"col-md-3 list\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><div class=\"row\"><div class=\"col-md-8\">'+noteSnapshot.val().judul+'</div><div class=\"col-md-4\"><button type=\"button\" class=\"close close_todo\" data-id=\"'+noteSnapshot.val().id_list+'\"><span>&times;</span></button></div></div></div><div class=\"panel-body\">'+noteSnapshot.val().description+'</div></div></div>');
         });
-        for (var i = 0; i < json.length; ++i) {
-            $('#get_list').append('<div class=\"col-md-3 list\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><div class=\"row\"><div class=\"col-md-8\">'+json[i].judul+'</div><div class=\"col-md-4\"><button type=\"button\" class=\"close close_todo\" data-id=\"'+json[i].id_list+'\"><span>&times;</span></button></div></div></div><div class=\"panel-body\">'+json[i].description+'</div></div></div>');
-        }
-        console.log(json);
     });
 
 });
