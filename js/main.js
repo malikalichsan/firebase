@@ -28,11 +28,11 @@ $(document).ready(function() {
     // });
 
     var db = firebase.database().ref().child('todo');
-    db.on('value', function(notesSnapshot) {
+    db.on('value', function(data) {
         $('#get_list').empty();
-        notesSnapshot.forEach(function(noteSnapshot) {
-            console.log(noteSnapshot.val());
-            $('#get_list').append('<div class=\"col-md-3 list\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><div class=\"row\"><div class=\"col-md-8\">'+noteSnapshot.val().judul+'</div><div class=\"col-md-4\"><button type=\"button\" class=\"close close_todo\" data-id=\"'+noteSnapshot.val().id_list+'\"><span>&times;</span></button></div></div></div><div class=\"panel-body\">'+noteSnapshot.val().description+'</div></div></div>');
+        data.forEach(function(data) {
+            // console.log(data.val());
+            $('#get_list').append('<div class=\"col-md-3 list\"><div class=\"panel panel-default\"><div class=\"panel-heading\"><div class=\"row\"><div class=\"col-md-8\">'+data.val().judul+'</div><div class=\"col-md-4\"><button type=\"button\" class=\"close close_todo\" data-id=\"'+data.val().id_list+'\"><span>&times;</span></button></div></div></div><div class=\"panel-body\">'+data.val().description+'</div></div></div>');
         });
     });
 
